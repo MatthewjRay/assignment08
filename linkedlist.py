@@ -7,21 +7,48 @@ Created on Sun May  1 02:30:48 2022
 """
 
 class LinkedList:
-    def init(self):
+    def __init__(self):
         self.head = None
         nodes = []
         for node in nodes:
             list.append(node)
-   
-    def __init__(self):
-        self.head = None
-         
+
+    def __iter__(self):
+        node = self.head
+        while node is not None:
+            yield node.value
+            node = node.next
+
+    def __len__(self):
+        size = 0
+        for i in self:
+            size += 1
+        return size
+
+#getnum used for unittesting: Ref: https://www.geeksforgeeks.org/write-a-function-to-get-nth-node-in-a-linked-list/
+    def getNum(self, index):
+        current = self.head
+        count = 0
+        while (current):
+            if (count == index):
+                return current.value
+            count += 1
+            current = current.next
+        return 0    
     
     def insert(self, value, where = None):
     #------ Check if value for 'insert' is empty. if yes: create new list. if not: proceed with regular insert -------#
         if where == None:
-            node  = Node(value)
-            self.head = node
+            prev = None
+            tail  = Node(value)
+            next = self.head
+            if self.head == None:
+                self.head = tail 
+            while next != where: 
+                prev = next
+                next = next.next
+                if next == None:
+                    prev.next = tail
             return self
         else:
             node = Node(value)
@@ -67,7 +94,8 @@ class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
-        
+
+    
 a = Node('A')
 b = Node('B')
 c = Node('C')
@@ -79,9 +107,10 @@ a.next = b
 b.next = c
 c.next = d
 
-ll.insert('P',b)
 
-ll.remove('P')
+ll.insert('D',c)
+
+ll.remove('A')
 
 
 ll.printLL()
