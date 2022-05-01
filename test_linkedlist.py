@@ -6,11 +6,8 @@ Created on Mon Apr 25 03:43:49 2022
 @author: matthewray
 """
 
-import os 
-os.chdir ('/Users/matthewray/Desktop/Northeastern/PythonProjects/assignment08-MatthewjRay')
-
 import unittest
-from linked_list import LinkedList, Node
+from linkedlist import LinkedList, Node
 
 
 
@@ -20,53 +17,52 @@ def test_LinkedList_instance():
    c = Node('C')
    d = Node('D')
 
-   l_list = LinkedList()
-   l_list.head = a
+   ll = LinkedList()
+   ll.head = a
    a.next = b
    b.next = c
    c.next = d
 
-   return l_list
+   return ll
 
 class TestLinkedList(unittest.TestCase):
     
-    def test_init(self):
-        l_list = test_LinkedList_instance()
-        self.assertEqual(l_list.head, 'A')
-        self.assertEqual(len(l_list), 1)
+    #def test_iter(self):
+	#	x = test_LList_instance()
+	#	self.assertEquals([xi for xi in x], [1.11, 2.22, 3.33])
 
-    def test_iter(self):
-     node1 = Node("A")
-     node2 = Node("B")
-     node3 = Node("C")
-     node4 = Node("D")
+    def test_insert_first(self):
+        linked_list, inpt = self.make_five_elements_linked_list()
+        linked_list.insert("Hello", 0)
+        self.assertEqual(linked_list.to_list(), ["Hello"] + inpt)
+        self.assertEqual(linked_list.size(), len(inpt) + 1)
 
-     node1.next = node2
-     node2.next = node3
-     node3.next = node4
+    def test_insert_last(self):
+        linked_list, inpt = self.make_five_elements_linked_list()
+        linked_list.insert("Hello", len(inpt))
+        self.assertEqual(linked_list.to_list(), inpt + ["Hello"])
+        self.assertEqual(linked_list.size(), len(inpt) + 1)
 
-     l_list = LinkedList()
-     l_list.head = node1
+    def test_insert_middle(self):
+        linked_list, inpt = self.make_five_elements_linked_list()
+        index_to_insert = 2
+        linked_list.insert("Hello", index_to_insert)
+        self.assertEqual(linked_list.to_list(), inpt[:index_to_insert] + ["Hello"] + inpt[index_to_insert:])
+        self.assertEqual(linked_list.size(), len(inpt) + 1)
 
-     self.assertEqual(l_list.head, node1)
-     self.assertEqual(l_list.head.next, node2)
-     self.assertEqual(l_list.head.next.next, node3)
-     self.assertEqual(l_list.head.next.next.next, node4)
-     self.assertIsNone(l_list.head.next.next.next.next)
+
+
+     def test_insert(self):
+        ll = test_LinkedList_instance()
+        ll.insert('D', 'c')
+        self.assertEquals(len(ll), 4)
+        self.assertEquals(ll[0], 'A')
+        self.assertEquals(ll[1], 'B')
+        self.assertEquals(ll[2], 'C')
         
-  
-        
-   # def test_insert(self):
-    #    ll = test_linked_list_instance()
-     #   ll.append_node('D')
-      #  self.assertEquals(len(ll), 4)
-        #self.assertEquals(ll[0], 'A')
-        #self.assertEquals(ll[1], 'B')
-        #self.assertEquals(ll[2], 'C')
-        
-   # def test_remove(self):
-    #    ll = test_linked_list_instance()
-     #   self.assertEqual(ll.delete_node('B'), (len(ll), 2), "Deleting 2 from [3,2,1] should return the node with value 2")
+     def test_remove(self):
+        ll = test_LinkedList_instance()
+         self.assertEqual(ll.delete_node('B'), (len(ll), 2), "Deleting 2 from [3,2,1] should return the node with value 2")
         
 
 
