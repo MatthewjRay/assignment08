@@ -9,62 +9,145 @@ Created on Mon Apr 25 03:43:49 2022
 import unittest
 from linkedlist import LinkedList, Node
 
+a = Node('A')
+b = Node('B')
+c = Node('C')
+d = Node('D')
+
+ll = LinkedList()
+ll.head = a
+a.next = b
+b.next = c
+c.next = d
 
 
-def test_LinkedList_instance():
-   a = Node('A')
-   b = Node('B')
-   c = Node('C')
-   d = Node('D')
+class TestLList(unittest.TestCase):
+  def test_init(self):
+        a = Node('A')
+        b = Node('B')
+        c = Node('C')
+        d = Node('D')
 
-   ll = LinkedList()
-   ll.head = a
-   a.next = b
-   b.next = c
-   c.next = d
+        ll = LinkedList()
+        ll.head = a
+        a.next = b
+        b.next = c
+        c.next = d
+        
+        self.assertEqual(ll.head,a)
+        self.assertEqual(ll.head.next,b)
+        self.assertEqual(ll.head.next.next,c)
+        self.assertEqual(ll.head.next.next.next,d)
+        self.assertIsNone(ll.head.next.next.next.next)
+        
+  def test_iter(self):
+        a = Node('A')
+        b = Node('B')
+        c = Node('C')
+        d = Node('D')
 
-   return ll
+        ll = LinkedList()
+        ll.head = a
+        a.next = b
+        b.next = c
+        c.next = d
+        
+        self.assertEquals([lli for lli in ll], ['A', 'B', 'C', 'D'])
 
-class TestLinkedList(unittest.TestCase):
-    
-    #def test_iter(self):
-	#	x = test_LList_instance()
-	#	self.assertEquals([xi for xi in x], [1.11, 2.22, 3.33])
+  def test_len(self):
+        a = Node('A')
+        b = Node('B')
+        c = Node('C')
+        d = Node('D')
 
-    def test_insert_first(self):
-        linked_list, inpt = self.make_five_elements_linked_list()
-        linked_list.insert("Hello", 0)
-        self.assertEqual(linked_list.to_list(), ["Hello"] + inpt)
-        self.assertEqual(linked_list.size(), len(inpt) + 1)
-
-    def test_insert_last(self):
-        linked_list, inpt = self.make_five_elements_linked_list()
-        linked_list.insert("Hello", len(inpt))
-        self.assertEqual(linked_list.to_list(), inpt + ["Hello"])
-        self.assertEqual(linked_list.size(), len(inpt) + 1)
-
-    def test_insert_middle(self):
-        linked_list, inpt = self.make_five_elements_linked_list()
-        index_to_insert = 2
-        linked_list.insert("Hello", index_to_insert)
-        self.assertEqual(linked_list.to_list(), inpt[:index_to_insert] + ["Hello"] + inpt[index_to_insert:])
-        self.assertEqual(linked_list.size(), len(inpt) + 1)
-
-
-
-     def test_insert(self):
-        ll = test_LinkedList_instance()
-        ll.insert('D', 'c')
+        ll = LinkedList()
+        ll.head = a
+        a.next = b
+        b.next = c
+        c.next = d
         self.assertEquals(len(ll), 4)
-        self.assertEquals(ll[0], 'A')
-        self.assertEquals(ll[1], 'B')
-        self.assertEquals(ll[2], 'C')
-        
-     def test_remove(self):
-        ll = test_LinkedList_instance()
-         self.assertEqual(ll.delete_node('B'), (len(ll), 2), "Deleting 2 from [3,2,1] should return the node with value 2")
-        
+
+  
+  def test_insert(self):
+    ll.insert('D', c)
+    self.assertEqual(len(ll), 5)
+    self.assertEqual(ll.getNum(2), 'D')
+
+
+  def test_insert_empty(self):
+    x = LinkedList()
+    x.insert(a)
+    self.assertEqual(len(x), 1)
+    self.assertEqual(x.head.value.value, 'A')
+
+  def test_insert_head(self):
+    ll.insert('FIRST', a)
+    self.assertEqual(ll.head.value, 'FIRST')
+
+  def test_insert_tail(self):
+    a = Node('A')
+    b = Node('B')
+    c = Node('C')
+    d = Node('D')
+
+    ll = LinkedList()
+    ll.head = a
+    a.next = b
+    b.next = c
+    c.next = d
+    ll.insert('d')
+
+    self.assertEqual(ll.getNum(4), 'd')
+
+  def test_remove(self):
+    a = Node('A')
+    b = Node('B')
+    c = Node('C')
+    d = Node('D')
+
+    ll = LinkedList()
+    ll.head = a
+    a.next = b
+    b.next = c
+    c.next = d
+
+    ll.remove('B')
+    self.assertEqual(len(ll), 3)
+    self.assertEqual(ll.head.next.value, 'C')
+
+  def test_remove_head(self):
+    a = Node('A')
+    b = Node('B')
+    c = Node('C')
+    d = Node('D')
+
+    ll = LinkedList()
+    ll.head = a
+    a.next = b
+    b.next = c
+    c.next = d
+
+    ll.remove('A')
+    self.assertEqual(len(ll), 3)
+    self.assertEqual(ll.head.value, 'B')
+
+  def test_remove_tail(self):
+    a = Node('A')
+    b = Node('B')
+    c = Node('C')
+    d = Node('D')
+
+    ll = LinkedList()
+    ll.head = a
+    a.next = b
+    b.next = c
+    c.next = d
+
+    ll.remove('D')
+    self.assertEqual(len(ll), 3)
+    self.assertEqual(ll.getNum(2), 'C')
 
 
 if __name__ == '__main__':
     unittest.main()
+
