@@ -15,17 +15,18 @@ from linked_list import LinkedList, Node
 
 
 def test_LinkedList_instance():
-    first_node = Node('A')
-    second_node = Node('B')
-    third_node = Node('C')
-    fourth_node = Node('D')
+   a = Node('A')
+   b = Node('B')
+   c = Node('C')
+   d = Node('D')
 
-    l_list = LinkedList()
-    l_list.head = first_node
-    first_node.next = second_node
-    second_node.next = third_node
-    third_node.next = fourth_node
-    return l_list
+   l_list = LinkedList()
+   l_list.head = a
+   a.next = b
+   b.next = c
+   c.next = d
+
+   return l_list
 
 class TestLinkedList(unittest.TestCase):
     
