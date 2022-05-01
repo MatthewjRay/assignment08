@@ -54,13 +54,14 @@ class LinkedList:
                 prev = next
                 next = next.next
                 
-            return
+        return
         
     def printLL(self):
         current = self.head
         while(current):
             print(current.value)
             current = current.next
+        
         
 class Node:
     def __init__(self, value):
@@ -79,6 +80,8 @@ b.next = c
 c.next = d
 
 ll.insert('P',b)
+
+ll.remove('P')
 
 
 ll.printLL()
